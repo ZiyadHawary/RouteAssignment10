@@ -1,0 +1,21 @@
+import { Router } from 'express';
+import * as controller from './auth.controller.js';
+import * as schemas from './auth.validation.js';
+import validate from '../../middleware/validation.js';
+import auth from '../../middleware/auth.js';
+
+const router = Router({ strict: true, caseSensitive: true });
+router.post('/signup', validate(schemas.signup), controller.signup);
+router.post('/confirm-email', validate(schemas.otp), controller.confirmEmail);
+router.post('/resend-otp', validate(schemas.emailOnly), controller.resendOtp);
+router.post('/login', validate(schemas.login), controller.login);
+router.post('/login/confirm', validate(schemas.otp), controller.confirmLogin);
+router.post('/refresh', validate(schemas.refresh), controller.refresh);
+router.post('/forgot-password', validate(schemas.emailOnly), controller.forgotPassword);
+router.post('/reset-password', validate(schemas.reset), controller.resetPassword);
+router.post('/google', controller.googleLogin);
+router.post('/two-step/enable', auth, controller.enableTwoStep);
+router.post('/two-step/verify', auth, validate(schemas.otpOnly), controller.verifyTwoStep);
+router.post('/logout', auth, validate(schemas.logout), controller.logout);
+router.post('/logout-all', auth, controller.logoutAll);
+export default router;

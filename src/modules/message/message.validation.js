@@ -1,0 +1,1 @@
+import Joi from 'joi';export const send=Joi.object({receiverId:Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required(),body:Joi.string().min(1).max(2000).required()});export const id=Joi.object({id:Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required()});

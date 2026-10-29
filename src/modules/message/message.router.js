@@ -1,0 +1,1 @@
+import {Router} from 'express';import * as c from './message.controller.js';import * as v from './message.validation.js';import validate from '../../middleware/validation.js';import auth from '../../middleware/auth.js';const r=Router({strict:true,caseSensitive:true,mergeParams:true});r.use(auth);r.post('/',validate(v.send),c.send);r.get('/received',c.received);export default r;
